@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".VectrasApp"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="false"
+        android:isGame="true"
+        android:extractNativeLibs="true"
+        android:theme="@style/Theme.Vectras">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:exported="true"
+            android:resizeableActivity="true"
+            android:taskAffinity="com.vectras.as3" />
+        
+        <activity
+            android:name=".activities.GamesListActivity"
+            android:exported="true"
+            android:resizeableActivity="true"
+            android:taskAffinity="com.vectras.as3" />
+
+        <activity
+            android:name=".activities.ConfigurationActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.termux.app.TermuxActivity"
+            android:label="@string/application_name"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
+            android:theme="@style/Theme.Vectras" />
+
+        <activity
+            android:name=".VectrasApp$CrashActivity"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:label="App Crash" />
+
+        <service
+            android:name=".MainService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name="com.termux.app.TermuxService"
+            android:exported="false" />
+        <service
+            android:name="com.termux.app.RunCommandService"
+            android:exported="true"
+            android:stopWithTask="true">
+        </service>
+
+        <service
+            android:name=".services.MainService"
+            android:enabled="true"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

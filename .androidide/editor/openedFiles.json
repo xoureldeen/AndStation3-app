@@ -1,0 +1,50 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Winux-VM/app/src/main/java/com/vectras/as3/activities/SplashActivity.java",
+      "selection": {
+        "end": {
+          "column": 89,
+          "index": 11415,
+          "line": 277
+        },
+        "start": {
+          "column": 89,
+          "index": 11415,
+          "line": 277
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Winux-VM/app/src/main/java/com/vectras/as3/activities/GamesListActivity.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/Winux-VM/app/src/main/java/com/vectras/as3/activities/MainActivity.java",
+      "selection": {
+        "end": {
+          "column": 10,
+          "index": 3170,
+          "line": 93
+        },
+        "start": {
+          "column": 10,
+          "index": 3170,
+          "line": 93
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/Winux-VM/app/src/main/java/com/vectras/as3/activities/MainActivity.java"
+}

@@ -1,0 +1,126 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.Vectras" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:colorBackground">#000000</item>
+        <item name="colorPrimary">@color/soft_purple_mid</item>
+        <item name="colorPrimaryDark">@color/soft_purple_dark</item>
+        <item name="colorAccent">@color/soft_purple_light</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorSurface">#000000</item>
+        <item name="colorOnSurface">@android:color/white</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:navigationBarColor">#000000</item>
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+
+    <style name="TermuxAlertDialogStyle" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <!-- Seen in buttons on alert dialog: -->
+        <item name="android:colorAccent">#212121</item>
+    </style>
+
+    <!-- See https://developer.android.com/training/material/theme.html for how to customize the Material theme. -->
+    <!-- NOTE: Cannot use "Light." since it hides the terminal scrollbar on the default black background. -->
+    <style name="Theme.Vectras.Black" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:colorPrimary">#FF000000</item>
+        <item name="android:windowBackground">@android:color/black</item>
+
+        <!-- Seen in buttons on left drawer: -->
+        <item name="android:colorAccent">#FDFDFD</item>
+        <!-- Avoid action mode toolbar pushing down terminal content when
+             selecting text on pre-6.0 (non-floating toolbar). -->
+        <item name="android:windowActionModeOverlay">true</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+
+        <!-- https://developer.android.com/training/tv/start/start.html#transition-color -->
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+    </style>
+
+    <style name="CardViewStyle" parent="CardView">
+        <item name="cardBackgroundColor">#25222C</item>
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+    <style name="MainDialogTheme" parent="AppTheme.MaterialAlertDialog"></style>
+    <!--  Alert Dialog  -->
+    <style name="AppTheme.MaterialAlertDialog" parent="@style/ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/MaterialDialog.ShapeAppearance</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialDialog.Title.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialDialog.Body.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MaterialAlertDialog.PositiveButtonStyle
+        </item>
+        <item name="buttonBarNegativeButtonStyle">@style/MaterialAlertDialog.NegativeButtonStyle
+        </item>
+        <item name="buttonBarNeutralButtonStyle">@style/MaterialAlertDialog.NeutralButtonStyle
+        </item>
+        <item name="android:windowEnterAnimation">@animator/dialog_in</item>
+        <item name="android:windowExitAnimation">@animator/dialog_out</item>
+        <!--<item name="background">?attr/colorSurface</item>-->
+        <item name="dialogCornerRadius">28dp</item>
+    </style>
+
+    <style name="MaterialDialog.ShapeAppearance" parent="">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="MaterialDialog.Title.Text" parent="@style/MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/josefin_sans</item>
+    </style>
+
+    <style name="MaterialDialog.Body.Text" parent="@style/MaterialAlertDialog.Material3.Body.Text">
+        <item name="fontFamily">@font/josefin_sans</item>
+    </style>
+
+    <style name="MaterialAlertDialog.PositiveButtonStyle" parent="@style/Widget.Material3.Button.TextButton.Dialog">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="fontFamily">@font/josefin_sans</item>
+    </style>
+
+    <style name="MaterialAlertDialog.NegativeButtonStyle" parent="@style/Widget.Material3.Button.TextButton.Dialog">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="fontFamily">@font/josefin_sans</item>
+    </style>
+
+    <style name="MaterialAlertDialog.NeutralButtonStyle" parent="@style/Widget.Material3.Button.TextButton.Dialog">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="fontFamily">@font/josefin_sans</item>
+    </style>
+
+    <style name="TransparentProgressDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="BaseImageButton">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="ListMenuButton" parent="BaseImageButton">
+        <item name="android:layout_width">34dp</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+    </style>
+
+</resources>
