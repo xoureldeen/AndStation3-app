@@ -106,11 +106,6 @@ public class GamesListActivity extends AppCompatActivity
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.dialog_progress, null);
 
-        if (!isTermuxX11Installed()) {
-            showInstallTermuxX11Dialog();
-            return;
-        }
-
         progressDialog2 = new Dialog(this);
         progressDialog2.setContentView(dialogView);
         progressDialog2.setCancelable(false);
@@ -130,7 +125,7 @@ public class GamesListActivity extends AppCompatActivity
                             Intent serviceIntent = new Intent(this, MainService.class);
                             this.startForegroundService(serviceIntent);
 
-                            launchTermuxX11();
+                            launchX11();
                         },
                         10000);
         initX11();
@@ -350,55 +345,8 @@ public class GamesListActivity extends AppCompatActivity
                 .start();
     }
 
-    private boolean isTermuxX11Installed() {
-        PackageManager pm = this.getPackageManager();
-        try {
-            PackageInfo info = pm.getPackageInfo("com.termux.x11", 0);
-            return (info != null);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
-    private void showInstallTermuxX11Dialog() {
-        SpannableString spannableString =
-                new SpannableString(
-                        "Please install the Termux X11 plugin from: https://github.com/termux/termux-x11/releases");
-        ClickableSpan clickableSpan =
-                new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        String url = "https://github.com/termux/termux-x11/releases";
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-                    }
-                };
-
-        int start =
-                spannableString.toString().indexOf("https://github.com/termux/termux-x11/releases");
-        int end = start + "https://github.com/termux/termux-x11/releases".length();
-        spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        AlertDialog dialog =
-                new AlertDialog.Builder(this, R.style.MainDialogTheme)
-                        .setTitle("Install Termux X11 Plugin")
-                        .setMessage(spannableString)
-                        .setPositiveButton("OK", null)
-                        .create();
-
-        dialog.show();
-        TextView textView = dialog.findViewById(android.R.id.message);
-        if (textView != null) {
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-        }
-    }
-
-    private void launchTermuxX11() {
-        Intent intent = new Intent();
-        intent.setClassName("com.termux.x11", "com.termux.x11.MainActivity");
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
-
+    private void launchX11() {
+        Intent intent = new Intent(this, com.vectras.as3.x11.X11Activity.class);
         startActivity(intent);
     }
 
@@ -407,11 +355,7 @@ public class GamesListActivity extends AppCompatActivity
     }
 
     private void initX11() {
-        try {
-            TermuxX11.main(new String[] {":0"});
-        } catch (ErrnoException e) {
-            throw new RuntimeException(e);
-        }
+        TermuxX11.main(new String[] {":0"});
     }
 
     private File getUniqueOutputDir(String baseName) {

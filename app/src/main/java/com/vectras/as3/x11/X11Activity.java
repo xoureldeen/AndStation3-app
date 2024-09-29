@@ -157,8 +157,8 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
             e.apply();
         }
 
-        oldFullscreen = preferences.getBoolean("fullscreen", false);
-        oldHideCutout = preferences.getBoolean("hideCutout", false);
+        oldFullscreen = preferences.getBoolean("fullscreen", true);
+        oldHideCutout = preferences.getBoolean("hideCutout", true);
 
         preferences.registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> onPreferencesChanged(key));
 
@@ -546,7 +546,7 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
         useTermuxEKBarBehaviour = p.getBoolean("useTermuxEKBarBehaviour", false);
         toggleIMEUsingBackKey = p.getBoolean("toggleIMEUsingBackKey", true);
 
-        int requestedOrientation = p.getBoolean("forceLandscape", false) ?
+        int requestedOrientation = p.getBoolean("forceLandscape", true) ?
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
         if (getRequestedOrientation() != requestedOrientation)
             setRequestedOrientation(requestedOrientation);
@@ -613,7 +613,7 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
         terminalToolbarViewPager.addOnPageChangeListener(new X11ToolbarViewPager.OnPageChangeListener(this, terminalToolbarViewPager));
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean enabled = preferences.getBoolean("showAdditionalKbd", true);
+        boolean enabled = preferences.getBoolean("showAdditionalKbd", false);
         boolean showNow = enabled && preferences.getBoolean("additionalKbdVisible", true);
 
         terminalToolbarViewPager.setVisibility(showNow ? View.VISIBLE : View.GONE);
@@ -633,7 +633,7 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
     public void toggleExtraKeys(boolean visible, boolean saveState) {
         runOnUiThread(() -> {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean enabled = preferences.getBoolean("showAdditionalKbd", true);
+            boolean enabled = preferences.getBoolean("showAdditionalKbd", false);
             ViewPager pager = getTerminalToolbarViewPager();
             ViewGroup parent = (ViewGroup) pager.getParent();
             boolean show = enabled && mClientConnected && visible;
@@ -739,8 +739,8 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
         Window window = getWindow();
         View decorView = window.getDecorView();
-        boolean fullscreen = p.getBoolean("fullscreen", false);
-        boolean hideCutout = p.getBoolean("hideCutout", false);
+        boolean fullscreen = p.getBoolean("fullscreen", true);
+        boolean hideCutout = p.getBoolean("hideCutout", true);
         boolean reseed = p.getBoolean("Reseed", true);
 
         if (oldHideCutout != hideCutout || oldFullscreen != fullscreen) {
@@ -752,7 +752,7 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
             return;
         }
 
-        int requestedOrientation = p.getBoolean("forceLandscape", false) ?
+        int requestedOrientation = p.getBoolean("forceLandscape", true) ?
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
         if (getRequestedOrientation() != requestedOrientation)
             setRequestedOrientation(requestedOrientation);

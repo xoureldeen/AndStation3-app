@@ -9,6 +9,7 @@ android {
     defaultConfig {
         applicationId "com.vectras.as3"
         minSdk 26
+        //noinspection ExpiredTargetSdkVersion
         targetSdk 28
         versionCode 1
         versionName "v0.1"

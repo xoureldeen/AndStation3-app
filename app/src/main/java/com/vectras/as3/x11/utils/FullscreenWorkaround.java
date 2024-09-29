@@ -33,7 +33,7 @@ public class FullscreenWorkaround {
                 !mActivity.hasWindowFocus() ||
                 !((mActivity.getWindow().getAttributes().flags & FLAG_FULLSCREEN) == FLAG_FULLSCREEN) ||
                 !preferences.getBoolean("Reseed", true) ||
-                !preferences.getBoolean("fullscreen", false) ||
+                !preferences.getBoolean("fullscreen", true) ||
                 SamsungDexUtils.checkDeXEnabled(mActivity)
         )
             return;

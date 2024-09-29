@@ -201,11 +201,6 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.dialog_progress, null);
 
-        if (!isTermuxX11Installed()) {
-            showInstallTermuxX11Dialog();
-            return;
-        }
-
         progressDialog = new Dialog(this);
         progressDialog.setContentView(dialogView);
         progressDialog.setCancelable(false);
@@ -216,9 +211,12 @@ public class MainActivity extends AppCompatActivity {
         File as3Dir = new File(Environment.getExternalStorageDirectory(), "Andstation3");
         if (!as3Dir.exists()) as3Dir.mkdirs();
 
+        initX11();
+
         ShellLoader shellExec = new ShellLoader(this);
-        
+
         shellExec.executeShellCommand("rpcs3 >> /sdcard/Andstation3/rpcs3.log", true, this);
+
         VectrasStatus.logInfo("Saving rpcs3 logs to /sdcard/Andstation3/rpcs3.log");
 
         new Handler()
@@ -232,12 +230,11 @@ public class MainActivity extends AppCompatActivity {
                             Intent serviceIntent = new Intent(this, MainService.class);
                             this.startForegroundService(serviceIntent);
 
-                            launchTermuxX11();
+                            launchX11();
 
                             new PulseAudio(activity).start();
                         },
                         10000);
-        initX11();
     }
 
     @Override
@@ -272,54 +269,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isTermuxX11Installed() {
-        PackageManager pm = MainActivity.this.getPackageManager();
-        try {
-            PackageInfo info = pm.getPackageInfo("com.termux.x11", 0);
-            return (info != null);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
-    private void showInstallTermuxX11Dialog() {
-        SpannableString spannableString =
-                new SpannableString(
-                        "Please install the Termux X11 plugin from: https://github.com/termux/termux-x11/releases");
-        ClickableSpan clickableSpan =
-                new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        String url = "https://github.com/termux/termux-x11/releases";
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        MainActivity.this.startActivity(intent);
-                    }
-                };
-
-        int start =
-                spannableString.toString().indexOf("https://github.com/termux/termux-x11/releases");
-        int end = start + "https://github.com/termux/termux-x11/releases".length();
-        spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        AlertDialog dialog =
-                new AlertDialog.Builder(MainActivity.this, R.style.MainDialogTheme)
-                        .setTitle("Install Termux X11 Plugin")
-                        .setMessage(spannableString)
-                        .setPositiveButton("OK", null)
-                        .create();
-
-        dialog.show();
-        TextView textView = dialog.findViewById(android.R.id.message);
-        if (textView != null) {
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-        }
-    }
-
-    private void launchTermuxX11() {
+    private void launchX11() {
         Intent intent = new Intent(activity, com.vectras.as3.x11.X11Activity.class);
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
-
         startActivity(intent);
     }
 
@@ -328,11 +279,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initX11() {
-        try {
-            TermuxX11.main(new String[] {":0"});
-        } catch (ErrnoException e) {
-            throw new RuntimeException(e);
-        }
+        TermuxX11.main(new String[] {":0"});
     }
 
     public void onGamesCardClicked(View view) {

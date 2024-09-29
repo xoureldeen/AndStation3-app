@@ -129,7 +129,7 @@ public class LorieView extends SurfaceView implements InputStub {
         int height = getMeasuredHeight();
         int w = width;
         int h = height;
-        switch(preferences.getString("displayResolutionMode", "native")) {
+        switch(preferences.getString("displayResolutionMode", "exact")) {
             case "scaled": {
                 int scale = preferences.getInt("displayScale", 100);
                 w = width * 100 / scale;
@@ -137,19 +137,19 @@ public class LorieView extends SurfaceView implements InputStub {
                 break;
             }
             case "exact": {
-                String[] resolution = preferences.getString("displayResolutionExact", "1280x1024").split("x");
+                String[] resolution = preferences.getString("displayResolutionExact", "1280x720").split("x");
                 w = Integer.parseInt(resolution[0]);
                 h = Integer.parseInt(resolution[1]);
                 break;
             }
             case "custom": {
                 try {
-                    String[] resolution = preferences.getString("displayResolutionCustom", "1280x1024").split("x");
+                    String[] resolution = preferences.getString("displayResolutionCustom", "1280x720").split("x");
                     w = Integer.parseInt(resolution[0]);
                     h = Integer.parseInt(resolution[1]);
                 } catch (NumberFormatException | PatternSyntaxException ignored) {
                     w = 1280;
-                    h = 1024;
+                    h = 720;
                 }
                 break;
             }
@@ -166,9 +166,9 @@ public class LorieView extends SurfaceView implements InputStub {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (preferences.getBoolean("displayStretch", false)
-              || "native".equals(preferences.getString("displayResolutionMode", "native"))
-              || "scaled".equals(preferences.getString("displayResolutionMode", "native"))) {
+        if (preferences.getBoolean("displayStretch", true)
+              || "native".equals(preferences.getString("displayResolutionMode", "exact"))
+              || "scaled".equals(preferences.getString("displayResolutionMode", "exact"))) {
             getHolder().setSizeFromLayout();
             return;
         }

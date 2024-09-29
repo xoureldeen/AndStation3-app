@@ -355,11 +355,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
         View x11Btn = findViewById(R.id.x11);
 
         x11Btn.setOnClickListener(view -> {
-            try {
-                TermuxX11.main(new String[]{":0"});
-            } catch (ErrnoException e) {
-                throw new RuntimeException(e);
-            }
+            TermuxX11.main(new String[]{":0"});
         });
     }
 

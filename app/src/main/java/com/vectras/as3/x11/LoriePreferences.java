@@ -156,7 +156,7 @@ public class LoriePreferences extends AppCompatActivity {
             opacityEKBar.setSeekBarIncrement(1);
             opacityEKBar.setShowSeekBarValue(true);
 
-            String displayResMode = p.getString("displayResolutionMode", "native");
+            String displayResMode = p.getString("displayResolutionMode", "exact");
             findPreference("displayScale").setVisible(displayResMode.contentEquals("scaled"));
             findPreference("displayResolutionExact").setVisible(displayResMode.contentEquals("exact"));
             findPreference("displayResolutionCustom").setVisible(displayResMode.contentEquals("custom"));
@@ -170,15 +170,15 @@ public class LoriePreferences extends AppCompatActivity {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P)
                 findPreference("hideCutout").setVisible(false);
 
-            findPreference("displayResolutionMode").setSummary(p.getString("displayResolutionMode", "native"));
-            findPreference("displayResolutionExact").setSummary(p.getString("displayResolutionExact", "1280x1024"));
-            findPreference("displayResolutionCustom").setSummary(p.getString("displayResolutionCustom", "1280x1024"));
-            findPreference("displayStretch").setEnabled("exact".contentEquals(p.getString("displayResolutionMode", "native")) || "custom".contentEquals(p.getString("displayResolutionMode", "native")));
+            findPreference("displayResolutionMode").setSummary(p.getString("displayResolutionMode", "exact"));
+            findPreference("displayResolutionExact").setSummary(p.getString("displayResolutionExact", "1280x720"));
+            findPreference("displayResolutionCustom").setSummary(p.getString("displayResolutionCustom", "1280x720"));
+            findPreference("displayStretch").setEnabled("exact".contentEquals(p.getString("displayResolutionMode", "exact")) || "custom".contentEquals(p.getString("displayResolutionMode", "exact")));
 
             int modeValue = Integer.parseInt(p.getString("touchMode", "1")) - 1;
             String mode = getResources().getStringArray(R.array.touchscreenInputModesEntries)[modeValue];
             findPreference("touchMode").setSummary(mode);
-            findPreference("scaleTouchpad").setVisible("1".equals(p.getString("touchMode", "1")) && !"native".equals(p.getString("displayResolutionMode", "native")));
+            findPreference("scaleTouchpad").setVisible("1".equals(p.getString("touchMode", "1")) && !"native".equals(p.getString("displayResolutionMode", "exact")));
             findPreference("showMouseHelper").setEnabled("1".equals(p.getString("touchMode", "1")));
 
             boolean requestNotificationPermissionVisible =
@@ -488,7 +488,7 @@ public class LoriePreferences extends AppCompatActivity {
                             case "showAdditionalKbd": {
                                 if ("true".contentEquals(newValue))
                                     edit.putBoolean("additionalKbdVisible", true);
-                                edit.putBoolean("showAdditionalKbd", "true".contentEquals(newValue));
+                                edit.putBoolean("showAdditionalKbd", "false".contentEquals(newValue));
                                 break;
                             }
                             case "enableAccessibilityServiceAutomatically": {
