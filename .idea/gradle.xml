@@ -10,6 +10,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/shell-loader" />
+            <option value="$PROJECT_DIR$/shell-loader/stub" />
             <option value="$PROJECT_DIR$/terminal-emulator" />
             <option value="$PROJECT_DIR$/terminal-view" />
           </set>

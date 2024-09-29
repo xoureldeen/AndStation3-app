@@ -5,7 +5,6 @@ plugins {
 android {
     namespace 'com.vectras.as3'
     compileSdk 34
-    buildFeatures.buildConfig true
 
     defaultConfig {
         applicationId "com.vectras.as3"
@@ -15,17 +14,17 @@ android {
         versionName "v0.1"
         buildConfigField "String", "VERSION_CODE", "\"1\""
         buildConfigField "String", "VERSION_NAME", "\"0.1\""
+        buildConfigField "String", "COMMIT", "\"NO_COMMIT\""
 
-        multiDexEnabled true
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags ''
-            }
-        }
     }
- 
+
+    signingConfigs.debug {
+        storeFile file('D:\\dev\\as3Debug.jks')
+        keyAlias 'key0'
+        storePassword '856856'
+        keyPassword '856856'
+    }
+    
     buildTypes {
         release {
             minifyEnabled false
@@ -41,9 +40,19 @@ android {
             universalApk false
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    compileOptions.sourceCompatibility JavaVersion.VERSION_1_9
+    compileOptions.targetCompatibility JavaVersion.VERSION_1_9
+    packagingOptions.jniLibs.useLegacyPackaging false
+    buildFeatures.aidl true
+    buildFeatures.buildConfig true
+    buildTypes.debug {
+        signingConfig signingConfigs.debug
+        postprocessing {
+            removeUnusedCode true
+            removeUnusedResources true
+            obfuscate false
+            optimizeCode true
+        }
     }
     
 }
@@ -64,9 +73,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+	// termux-x11
+    //noinspection DifferentStdlibGradleVersion
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.20"
+    implementation 'androidx.preference:preference:1.2.1'
+    compileOnly project(':shell-loader:stub')
 
     implementation project(":terminal-view")
 }

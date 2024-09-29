@@ -14,5 +14,5 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Boxvidra"
-include ':app', ':terminal-emulator', ':terminal-view'
+rootProject.name = "Andstation 3"
+include ':app', ':terminal-emulator', ':terminal-view', ':shell-loader:stub', ':shell-loader'

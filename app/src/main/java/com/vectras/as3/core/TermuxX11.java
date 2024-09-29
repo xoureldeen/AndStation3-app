@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.termux.app.TermuxService;
 import com.vectras.as3.VectrasApp;
+import com.vectras.as3.x11.CmdEntryPoint;
 
 import dalvik.system.PathClassLoader;
 
@@ -16,8 +17,6 @@ import java.lang.reflect.InvocationTargetException;
 
 public class TermuxX11 {
     private static final String TAG = "as3.TermuxX11";
-    private static final String TARGET_APP_ID = "com.termux.x11";
-    private static final String TARGET_CLASS_ID = "com.termux.x11.CmdEntryPoint";
 
     public static void main(String[] args) throws ErrnoException {
         String filesDir = VectrasApp.vectrasapp.getFilesDir().getAbsolutePath();
@@ -32,18 +31,9 @@ public class TermuxX11 {
         Os.setenv("TMPDIR", tmpDir.toString(), true);
 
         try {
-            PackageInfo targetInfo = VectrasApp.vectrasapp.getPackageManager().getPackageInfo(TARGET_APP_ID, 0);
-            if (targetInfo == null) throw new RuntimeException("Termux:X11 not installed");
-            Log.i(TAG, "Running " + targetInfo.applicationInfo.sourceDir + "::" + TARGET_CLASS_ID + "::main of " + TARGET_APP_ID + " application");
-            Class<?> targetClass = Class.forName(
-                    TARGET_CLASS_ID, true,
-                    new PathClassLoader(targetInfo.applicationInfo.sourceDir, null, ClassLoader.getSystemClassLoader())
-            );
-            targetClass.getMethod("main", String[].class).invoke(null, (Object) args);
+            CmdEntryPoint.main(args);
         } catch (AssertionError e) {
             System.err.println(e.getMessage());
-        } catch (InvocationTargetException e) {
-            if (e.getCause() != null) e.getCause().printStackTrace(System.err);
         } catch (Throwable e) {
             Log.e(TAG, "Termux:X11 error", e);
             e.printStackTrace(System.err);

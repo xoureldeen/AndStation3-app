@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.termux.app.TermuxService;
 import com.vectras.as3.activities.MainActivity;
 import com.vectras.as3.R;
 import com.vectras.as3.utils.FileUtils;
@@ -64,6 +65,10 @@ public class SplashActivity extends AppCompatActivity {
             launchMainActivity();
             return;
         }
+
+        File homeDir = new File(TermuxService.HOME_PATH);
+        if (!homeDir.exists())
+            homeDir.mkdirs();
 
         progressBar = findViewById(R.id.progressBar);
         vterm = findViewById(R.id.tvTerminalOutput);

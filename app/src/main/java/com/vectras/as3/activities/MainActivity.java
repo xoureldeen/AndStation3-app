@@ -316,8 +316,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchTermuxX11() {
-        Intent intent = new Intent();
-        intent.setClassName("com.termux.x11", "com.termux.x11.MainActivity");
+        Intent intent = new Intent(activity, com.vectras.as3.x11.X11Activity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
 

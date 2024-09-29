@@ -246,7 +246,8 @@
             <LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/github_users_recycler_view"
                     android:layout_width="match_parent"

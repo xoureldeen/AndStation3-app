@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 android {
     namespace "com.termux.terminal"
-    compileSdkVersion 31
+    compileSdkVersion 34
 
     buildTypes {
         release {

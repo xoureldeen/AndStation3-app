@@ -13,16 +13,20 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+	
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".VectrasApp"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
+        android:theme="@style/Theme.Vectras"
         android:supportsRtl="false"
         android:isGame="true"
-        android:extractNativeLibs="true"
-        android:theme="@style/Theme.Vectras">
+        android:hardwareAccelerated="true"
+        tools:ignore="DataExtractionRules,GoogleAppIndexingWarning">
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true">
@@ -77,11 +81,60 @@
             android:exported="true"
             android:stopWithTask="true">
         </service>
+			
+		<!--Termux-X11-->
+        <activity
+            android:name="com.vectras.as3.x11.X11Activity"
+            android:taskAffinity="com.vectras.as3.x11.X11Activity"
+            android:launchMode="singleInstance"
+            android:supportsPictureInPicture="true"
+            android:configChanges="fontScale|orientation|screenSize|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|screenLayout|touchscreen|uiMode|smallestScreenSize|density"
+            android:resizeableActivity="true"
+            android:windowSoftInputMode="stateHidden"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.SECONDARY_HOME" />
+            </intent-filter>
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
+        </activity>
+        <activity
+            android:theme="@style/Theme.AppCompat.DayNight"
+            android:excludeFromRecents="true"
+            android:name="com.vectras.as3.x11.LoriePreferences"
+            android:taskAffinity="com.vectras.as3.x11.LoriePreferences"
+            android:supportsPictureInPicture="false"
+            android:resizeableActivity="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+	    <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="false"/>
+	    <meta-data android:name="android.allow_multiple_resumed_activities" android:value="true" />
 
-        <service
-            android:name=".services.MainService"
-            android:enabled="true"
-            android:exported="false" />
+        <service android:name="com.vectras.as3.x11.utils.KeyInterceptor"
+            android:exported="true"
+            android:label="Termux:X11 KeyInterceptor"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <receiver android:name="com.vectras.as3.x11.LoriePreferences$Receiver" android:exported="true" tools:ignore="ExportedReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="com.vectras.as3.x11.CHANGE_PREFERENCE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
