@@ -12,9 +12,6 @@ import static com.vectras.as3.x11.LoriePreferences.ACTION_PREFERENCES_CHANGED;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
@@ -37,7 +34,6 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.service.notification.StatusBarNotification;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.DragEvent;
@@ -59,7 +55,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.math.MathUtils;
 import androidx.viewpager.widget.ViewPager;
 
@@ -86,9 +81,6 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
     private TouchInputHandler mInputHandler;
     private ICmdEntryInterface service = null;
     public TermuxX11ExtraKeys mExtraKeys;
-    private Notification mNotification;
-    private final int mNotificationId = 7892;
-    NotificationManager mNotificationManager;
     static InputMethodManager inputMethodManager;
     private boolean mClientConnected = false;
     private View.OnKeyListener mLorieKeyListener;
@@ -250,10 +242,7 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
 
         // Taken from Stackoverflow answer https://stackoverflow.com/questions/7417123/android-how-to-adjust-layout-in-full-screen-mode-when-softkeyboard-is-visible/7509285#
         FullscreenWorkaround.assistActivity(this);
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotification = buildNotification();
-        mNotificationManager.notify(mNotificationId, mNotification);
-
+        
         CmdEntryPoint.requestConnection();
         onPreferencesChanged("");
 
@@ -262,12 +251,6 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
 
         initStylusAuxButtons();
         initMouseAuxButtons();
-
-        if (SDK_INT >= VERSION_CODES.TIRAMISU
-                && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PERMISSION_GRANTED
-                && !shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-            requestPermissions(new String[] { Manifest.permission.POST_NOTIFICATIONS }, 0);
-        }
     }
 
     @Override
@@ -577,8 +560,6 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
     public void onResume() {
         super.onResume();
 
-        mNotificationManager.notify(mNotificationId, mNotification);
-
         setTerminalToolbarView();
         getLorieView().requestFocus();
     }
@@ -592,9 +573,6 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
         }
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
-        for (StatusBarNotification notification: mNotificationManager.getActiveNotifications())
-            if (notification.getId() == mNotificationId)
-                mNotificationManager.cancel(mNotificationId);
         super.onPause();
     }
 
@@ -671,46 +649,6 @@ public class X11Activity extends AppCompatActivity implements View.OnApplyWindow
         if (filterOutWinKey && (e.getKeyCode() == KEYCODE_META_LEFT || e.getKeyCode() == KEYCODE_META_RIGHT || e.isMetaPressed()))
             return false;
         return mLorieKeyListener.onKey(getLorieView(), e.getKeyCode(), e);
-    }
-
-    @SuppressLint("ObsoleteSdkInt")
-    Notification buildNotification() {
-        Intent preferencesIntent = new Intent(this, LoriePreferences.class);
-        preferencesIntent.putExtra("key", "value");
-        preferencesIntent.setAction(Intent.ACTION_MAIN);
-
-        Intent exitIntent = new Intent(ACTION_STOP);
-        exitIntent.setPackage(getPackageName());
-
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, preferencesIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        PendingIntent pExitIntent = PendingIntent.getBroadcast(this, 0, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        return new NotificationCompat.Builder(this, getNotificationChannel(notificationManager))
-                .setContentTitle("Termux:X11")
-                .setSmallIcon(R.drawable.ic_x11_icon)
-                .setContentText("Pull down to show options")
-                .setContentIntent(pIntent)
-                .setOngoing(true)
-                .setPriority(Notification.PRIORITY_MAX)
-                .setSilent(true)
-                .setShowWhen(false)
-                .setColor(0xFF607D8B)
-                .addAction(0, "Exit", pExitIntent)
-                .addAction(0, "Preferences", pIntent)
-                .build();
-    }
-
-    private String getNotificationChannel(NotificationManager notificationManager){
-        String channelId = getResources().getString(R.string.app_name);
-        String channelName = getResources().getString(R.string.app_name);
-        NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
-        channel.setImportance(NotificationManager.IMPORTANCE_DEFAULT);
-        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-        if (SDK_INT >= VERSION_CODES.Q)
-            channel.setAllowBubbles(false);
-        notificationManager.createNotificationChannel(channel);
-        return channelId;
     }
 
     int orientation;

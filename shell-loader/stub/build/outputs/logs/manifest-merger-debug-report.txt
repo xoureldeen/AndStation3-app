@@ -1,14 +1,14 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml:1:1-13
-INJECTED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml:1:1-13
+ADDED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml:1:1-13
+INJECTED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml:1:1-13
 	package
-		INJECTED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml
+		INJECTED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml
 uses-sdk
-INJECTED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml
-INJECTED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml
+INJECTED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml
+INJECTED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml
+		INJECTED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\Administrator\Documents\AS3\shell-loader\stub\src\main\AndroidManifest.xml
+		INJECTED from /storage/emulated/0/github/AndStation3-app/shell-loader/stub/src/main/AndroidManifest.xml

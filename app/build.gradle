@@ -5,6 +5,7 @@ plugins {
 android {
     namespace 'com.vectras.as3'
     compileSdk 34
+    buildToolsVersion "34.0.4"
 
     defaultConfig {
         applicationId "com.vectras.as3"
@@ -20,7 +21,7 @@ android {
     }
 
     signingConfigs.debug {
-        storeFile file('D:\\dev\\as3Debug.jks')
+        storeFile file('../../as3Debug.jks')
         keyAlias 'key0'
         storePassword '856856'
         keyPassword '856856'

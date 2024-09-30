@@ -127,8 +127,7 @@ public class GamesListActivity extends AppCompatActivity
 
                             launchX11();
                         },
-                        10000);
-        initX11();
+                        2000);
     }
 
     private void pickIsoFile() {
@@ -352,10 +351,6 @@ public class GamesListActivity extends AppCompatActivity
 
     private void stopProcess() {
         System.exit(0);
-    }
-
-    private void initX11() {
-        TermuxX11.main(new String[] {":0"});
     }
 
     private File getUniqueOutputDir(String baseName) {

@@ -144,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutManager GitLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(GitLayoutManager);
+        
+        initX11();
+    }
+
+    private void initX11() {
+        TermuxX11.main(new String[] {":0"});
     }
 
     private void showAboutDialog() {
@@ -211,8 +217,6 @@ public class MainActivity extends AppCompatActivity {
         File as3Dir = new File(Environment.getExternalStorageDirectory(), "Andstation3");
         if (!as3Dir.exists()) as3Dir.mkdirs();
 
-        initX11();
-
         ShellLoader shellExec = new ShellLoader(this);
 
         shellExec.executeShellCommand("rpcs3 >> /sdcard/Andstation3/rpcs3.log", true, this);
@@ -234,13 +238,16 @@ public class MainActivity extends AppCompatActivity {
 
                             new PulseAudio(activity).start();
                         },
-                        10000);
+                        2000);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (MainService.isStarted) bottomSheetDialog.show();
+        if (MainService.isStarted) {
+            bottomSheetDialog.show();
+            launchX11();
+        }
     }
 
     public void checkAndRequestDisableBatteryOptimization(Context context) {
@@ -276,10 +283,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void stopProcess() {
         System.exit(0);
-    }
-
-    private void initX11() {
-        TermuxX11.main(new String[] {":0"});
     }
 
     public void onGamesCardClicked(View view) {
