@@ -1,0 +1,96 @@
+<resources>
+    <string name="app_name">AndStation3</string>
+    <string name="bottom_sheet_behavior">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+    <string name="logs">السجلات</string>
+    <!-- logger -->
+    <string name="startvm">الآلة الإفتراضية بدأت!</string>
+    <string name="stopvm">تم إيقاف الآلة الإفتراضية!</string>
+    <string name="noproccesses">لا توجد عمليات!</string>
+    <string name="unknownstate">حالة غير معروفة!</string>
+
+    <!--======================TERMUX STRINGS====================-->
+    <string name="application_name">Vterm</string>
+    <string name="shared_user_label">Vterm مستخدم</string>
+    <string name="run_command_permission_label">تشغيل الأوامر في بيئة Vterm</string>
+<string name="run_command_permission_description">تنفيذ أوامر عشوائية داخل بيئة Vterm</string>
+<string name="new_session">جلسة جديدة</string>
+<string name="new_session_failsafe">حماية فاشلة</string>
+<string name="toggle_soft_keyboard">لوحة المفاتيح</string>
+<string name="reset_terminal">إعادة تعيين</string>
+<string name="style_terminal">تصميم</string>
+<string name="share_transcript_title">نص المحطة</string>
+<string name="help">مساعدة</string>
+<string name="toggle_keep_screen_on">ابق الشاشة مضاءة</string>
+<string name="autofill_password">ملء كلمة المرور تلقائيًا</string>
+
+<string name="bootstrap_installer_body">جارٍ التثبيت…</string>
+<string name="bootstrap_error_title">تعذر التثبيت</string>
+<string name="bootstrap_error_body">تعذر على Vterm تثبيت حزم التمهيد.</string>
+<string name="bootstrap_error_abort">إلغاء</string>
+<string name="bootstrap_error_try_again">حاول مرة أخرى</string>
+<string name="bootstrap_error_not_primary_user_message">يمكن تثبيت Vterm فقط على حساب المستخدم الرئيسي.</string>
+
+<string name="max_terminals_reached_title">تم الوصول إلى الحد الأقصى من المحطات</string>
+<string name="max_terminals_reached_message">أغلق المحطات الموجودة قبل إنشاء جديدة.</string>
+
+<string name="reset_toast_notification">تم إعادة تعيين المحطة.</string>
+
+<string name="select_url">اختر عنوان URL</string>
+<string name="select_url_dialog_title">انقر على عنوان URL للنسخ أو اضغط لفترة طويلة لفتحه</string>
+<string name="select_all_and_share">مشاركة النص</string>
+<string name="select_url_no_found">لم يتم العثور على عنوان URL في المحطة.</string>
+<string name="select_url_copied_to_clipboard">تم نسخ عنوان URL إلى الحافظة</string>
+<string name="share_transcript_chooser_title">إرسال النص إلى:</string>
+
+<string name="kill_process">إنهاء العملية (%d)</string>
+<string name="confirm_kill_process">هل تريد حقًا إنهاء هذه الجلسة؟</string>
+
+<string name="session_rename_title">تعيين اسم الجلسة</string>
+<string name="session_rename_positive_button">تعيين</string>
+<string name="session_new_named_title">جلسة جديدة باسم</string>
+<string name="session_new_named_positive_button">إنشاء</string>
+
+<string name="styling_not_installed">الإضافة Vterm:Style غير مثبتة.</string>
+<string name="styling_install">تثبيت</string>
+
+<string name="notification_action_exit">خروج</string>
+<string name="notification_action_wake_lock">الحصول على قفل الاستيقاظ</string>
+<string name="notification_action_wake_unlock">إطلاق قفل الاستيقاظ</string>
+
+<string name="file_received_title">حفظ الملف في ~/downloads/</string>
+<string name="file_received_edit_button">تعديل</string>
+<string name="file_received_open_folder_button">فتح المجلد</string>
+
+<string name="launch">إطلاق</string>
+<string name="startup_command">أمر بدء التشغيل</string>
+<string name="distro_version">bookworm v4.7.0</string>
+<string name="setup_as3">إعداد AS3 (لا تغادر التطبيق)</string>
+<string name="go_ahead">تابع</string>
+<string name="show_vterm">عرض Vterm</string>
+<string name="start_x11">بدء X11</string>
+<string name="start_as3">بدء AS3</string>
+<string name="termuxx11_service_yes">خدمة Termux X11: نعم</string>
+<string name="termuxx11_service_no">خدمة Termux X11: لا</string>
+<string name="logger_text">لا توجد سجلات بعد!\nمرحبًا بك في AS3 :)\n</string>
+<string name="open_termimal">فتح المحطة</string>
+<string name="as3_service_no">خدمة Andstation3: لا</string>
+<string name="as3_service_yes">خدمة AndStation3: نعم</string>
+<string name="enter_name">أدخل الاسم</string>
+<string name="enter_value">أدخل القيمة</string>
+<string name="add">إضافة</string>
+<string name="general">عام</string>
+<string name="stop_x11">إيقاف X11</string>
+<string name="title_logger">سجل الأحداث</string>
+<string name="title_status">الحالة</string>
+<string name="title_app_info">معلومات التطبيق</string>
+<string name="failed_to_load_data">فشل في تحميل البيانات.</string>
+<string name="wine_prefixes">سابقات Wine</string>
+<string name="home">الرئيسية</string>
+<string name="options">الخيارات</string>
+<string name="add_new_prefixes">إضافة سابقات جديدة</string>
+<string name="prefix_name">اسم السابق</string>
+<string name="machine_thumbnail">صورة مصغرة للآلة</string>
+<string name="wine64">Wine64</string>
+<string name="start_xfce4">بدء XFCE4</string>
+<string name="tools">أدوات</string>
+<string name="terminal">الوحدة الطرفية</string>
